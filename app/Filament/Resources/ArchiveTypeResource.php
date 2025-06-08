@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArchiveTypeResource extends Resource
 {
-    protected static ?string $model = ArchiveType::class;
+    protected static ?string $model = Archivetype::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
     protected static ?string $navigationGroup = 'Pengkategorian';
