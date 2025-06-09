@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\ArchiveType;
+use App\Models\Archivetype;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ArchiveTypePolicy
+class ArchivetypePolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class ArchiveTypePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, ArchiveType $archiveType): bool
+    public function view(User $user, Archivetype $archivetype): bool
     {
         return $user->can('view_archive::type');
     }
@@ -37,7 +37,7 @@ class ArchiveTypePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, ArchiveType $archiveType): bool
+    public function update(User $user, Archivetype $archivetype): bool
     {
         return $user->can('update_archive::type');
     }
@@ -45,7 +45,7 @@ class ArchiveTypePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, ArchiveType $archiveType): bool
+    public function delete(User $user, Archivetype $archivetype): bool
     {
         return $user->can('delete_archive::type');
     }
@@ -61,7 +61,7 @@ class ArchiveTypePolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, ArchiveType $archiveType): bool
+    public function forceDelete(User $user, Archivetype $archivetype): bool
     {
         return $user->can('force_delete_archive::type');
     }
@@ -77,7 +77,7 @@ class ArchiveTypePolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, ArchiveType $archiveType): bool
+    public function restore(User $user, Archivetype $archivetype): bool
     {
         return $user->can('restore_archive::type');
     }
@@ -93,7 +93,7 @@ class ArchiveTypePolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, ArchiveType $archiveType): bool
+    public function replicate(User $user, Archivetype $archivetype): bool
     {
         return $user->can('replicate_archive::type');
     }
