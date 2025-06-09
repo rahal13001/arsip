@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ArchiveResource\Pages;
 use App\Filament\Resources\ArchiveResource\RelationManagers;
+use App\Filament\Resources\ArchiveResource\RelationManagers\ArchivelendingRelationManager;
 use App\Models\Archive;
 use App\Models\Filecode;
 use Filament\Forms;
@@ -636,7 +637,7 @@ class ArchiveResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ArchivelendingRelationManager::class,
         ];
     }
 
