@@ -15,6 +15,7 @@ use Filament\Infolists\Infolist;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
@@ -229,6 +230,7 @@ class ArchiveResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('index')
                     ->label('#')
+                    ->alignment(Alignment::Center)
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('archive_number')
                     ->label('Nomor Arsip')
@@ -278,8 +280,7 @@ class ArchiveResource extends Resource
                 Tables\Columns\TextColumn::make('archive_name')
                     ->label('Nama Arsip')
                     ->sortable()
-                    ->searchable()
-                    ->limit(75)
+                    ->limit(50)
                     ->tooltip(function (TextColumn $column): ?string {
                         $state = $column->getState();
 
@@ -289,7 +290,6 @@ class ArchiveResource extends Resource
                         // Only render the tooltip if the column content exceeds the length limit.
                         return $state;
                     })
-                    ->wrap()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('archiveuser.archive_status')
@@ -307,18 +307,22 @@ class ArchiveResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('archiveuser.archive_properties')
                     ->label('Sifat Arsip')
+                    ->alignment(Alignment::Center)
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_make')
                     ->date('d M Y')
+                    ->alignment(Alignment::Center)
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('filecode.file_code')
                     ->label('Kode File')
+                    ->alignment(Alignment::Center)
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_input')
                     ->date('d M Y')
+                    ->alignment(Alignment::Center)
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('storage_location')
@@ -327,6 +331,7 @@ class ArchiveResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('development')
                     ->label('Tingkat Pengembangan')
+                    ->alignment(Alignment::Center)
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
 
