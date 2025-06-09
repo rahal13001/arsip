@@ -32,7 +32,12 @@ class Archivelending extends Model
         'lending_until',
         'application_note',
         'officer_note',
-        'lending_approval'
+        'lending_approval',
+        'return_date',
+        'return_note',
+        'return_officer_name',
+        'returner_name',
+        'returner_phone',
 
     ];
 
