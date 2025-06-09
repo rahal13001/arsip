@@ -24,7 +24,8 @@ class Archivelending extends Model
         'date_of_lending',
         'lending_until',
         'application_note',
-        'officer_note'
+        'officer_note',
+        'lending_approval'
 
     ];
 
