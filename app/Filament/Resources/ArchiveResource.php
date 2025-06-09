@@ -294,6 +294,11 @@ class ArchiveResource extends Resource
 
                 Tables\Columns\TextColumn::make('archiveuser.archive_status')
                     ->label('Status Arsip')
+                    ->formatStateUsing(function ($record) {
+
+                            return $record->archiveuser->archive_status == 1 ? 'Permanen' : 'Musnah';
+
+                    })
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('archivetype.archive_type')
