@@ -28,6 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->authGuard('web')
             ->login()
+            ->brandLogo(asset('img/Sipanda.png'))
+            ->darkModeBrandLogo(asset('img/Sipandablack.png'))
+            ->favicon(asset('img/pandatitle.png'))
+            ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Amber,
             ])
