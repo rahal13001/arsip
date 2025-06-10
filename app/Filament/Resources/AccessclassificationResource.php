@@ -17,7 +17,8 @@ class AccessclassificationResource extends Resource
 {
     protected static ?string $model = Accessclassification::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
+//    protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
+    protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
     protected static ?string $navigationGroup = 'Pengkategorian';
 
     public static function form(Form $form): Form
@@ -72,7 +73,7 @@ class AccessclassificationResource extends Resource
     {
         $locale = app()->getLocale();
         if ($locale === 'id') {
-            return "Klasifikasi Akses Arsip";
+            return "Klasifikasi Arsip";
         }
         else
         {
