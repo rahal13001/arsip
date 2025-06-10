@@ -67,7 +67,7 @@ class Archive extends Model
 
     public function archiveaccess(): BelongsTo
     {
-        return $this->belongsTo(ArchiveAccess::class);
+        return $this->belongsTo(Archiveaccess::class);
     }
 
 }
