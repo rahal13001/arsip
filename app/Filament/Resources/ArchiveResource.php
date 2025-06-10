@@ -6,6 +6,7 @@ use App\Filament\Resources\ArchiveResource\Pages;
 use App\Filament\Resources\ArchiveResource\RelationManagers;
 use App\Filament\Resources\ArchiveResource\RelationManagers\ArchivelendingRelationManager;
 use App\Models\Archive;
+use App\Models\Archivetype;
 use App\Models\Filecode;
 use Filament\Forms;
 use Filament\Forms\Components\Textarea;
@@ -168,46 +169,54 @@ class ArchiveResource extends Resource
                     ]),
 
                 Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Fieldset::make()
-                        ->relationship('archiveuser')
-                        ->schema([
-                            Forms\Components\DatePicker::make('active_date')
-                                ->required()
-                                ->label('Tanggal Aktif'),
-                            Forms\Components\DatePicker::make('inactive_date')
-                                ->label('Tanggal Inaktif'),
-                            Forms\Components\DatePicker::make('destruction_date')
-                                ->label('Tanggal Usul Musnah'),
+                    ->hidden(fn()=> !Auth::user()->can('create', Archivetype::class))
+                    ->schema([
+                        Forms\Components\Fieldset::make()
+                            ->relationship('archiveuser')
+                            ->schema([
+                                Forms\Components\DatePicker::make('active_date')
+                                    ->required()
+                                    ->label('Tanggal Aktif'),
+                                Forms\Components\DatePicker::make('inactive_date')
+                                    ->label('Tanggal Inaktif'),
+                                Forms\Components\DatePicker::make('destruction_date')
+                                    ->label('Tanggal Usul Musnah'),
 
-                            Forms\Components\TextInput::make('active_save_time')
-                                ->label('Masa Simpan Aktif')
-                                ->required()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('inactive_save_time')
-                                ->label('Masa Simpan Inaktif')
-                                ->numeric(),
-                            Forms\Components\Select::make('archive_properties')
-                                ->label('Sifat Arsip')
-                                ->required()
-                                ->options([
-                                    'Aktif' => 'Aktif',
-                                    'Inaktif' => 'Inaktif',
-                                    'Vital' => 'Vital',
-                                ]),
-                            Forms\Components\Select::make('archive_status')
-                                ->label('Status Arsip')
-                                ->required()
-                                ->options([
-                                    1 => 'Permanen',
-                                    2 => 'Musnah',
-                                ]),
-
-                        ])
-                        ->columns(3)
+                                Forms\Components\TextInput::make('active_save_time')
+                                    ->label('Masa Simpan Aktif')
+                                    ->required()
+                                    ->numeric(),
+                                Forms\Components\TextInput::make('inactive_save_time')
+                                    ->label('Masa Simpan Inaktif')
+                                    ->numeric(),
+                                Forms\Components\Select::make('archive_properties')
+                                    ->label('Sifat Arsip')
+                                    ->required()
+                                    ->options([
+                                        'Aktif' => 'Aktif',
+                                        'Inaktif' => 'Inaktif',
+                                        'Vital' => 'Vital',
+                                    ]),
+                                Forms\Components\Select::make('archive_status')
+                                    ->label('Status Arsip')
+                                    ->required()
+                                    ->options([
+                                        1 => 'Permanen',
+                                        2 => 'Musnah',
+                                    ]),
+                            ])
+                            ->columns(3),
+                                Forms\Components\Fieldset::make()
+                                    ->schema([
+                                        Forms\Components\Select::make('archiveaccess_id')
+                                            ->label('SKKAD')
+                                            ->relationship('archiveaccess', 'archive_access')
+                                            ->columnSpanFull(),
+                                    ])
                 ]),
 
                 Forms\Components\Section::make()
+                    ->hidden(fn()=> !Auth::user()->can('create', Archivetype::class))
                     ->schema([
                         Forms\Components\Fieldset::make()
                             ->relationship('archiveuser')
@@ -301,6 +310,11 @@ class ArchiveResource extends Resource
 
                     })
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('archiveaccess.archive_access')
+                    ->label('SKKAD')
+                    ->sortable()
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('archivetype.archive_type')
                     ->label('Jenis Arsip')
@@ -609,6 +623,14 @@ class ArchiveResource extends Resource
                             ->weight(FontWeight::Bold),
                         TextEntry::make('development')
                             ->label('Tingkat Pengembangan')
+                            ->weight(FontWeight::Bold),
+                        TextEntry::make('archiveaccess.archive_access')
+                            ->label('Tingkat Akses')
+                            ->formatStateUsing(function ($record) {
+
+                                return $record->access_limitation == 1 ? 'Umum' : 'Terbatas';
+
+                            })
                             ->weight(FontWeight::Bold),
 
                     ])
