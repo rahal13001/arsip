@@ -2,9 +2,16 @@
 
 use App\Http\Controllers\Auth\RemoteLoginController;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
+//
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Home', [ // <-- 'Home' matches Home.vue
+        'laravelVersion' => 12,
+        'phpVersion' => 8.3,
+    ]);
 });
 
 Route::get('/remote-login', function () {
