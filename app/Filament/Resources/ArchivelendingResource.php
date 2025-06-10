@@ -6,6 +6,7 @@ use App\Filament\Resources\ArchivelendingResource\Pages;
 use App\Filament\Resources\ArchivelendingResource\RelationManagers;
 use App\Models\Archive;
 use App\Models\Archivelending;
+use App\Models\Archivetype;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -24,6 +25,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ArchivelendingResource extends Resource
 {
@@ -150,6 +152,7 @@ class ArchivelendingResource extends Resource
                     ]),
 
                 Forms\Components\Section::make()
+                    ->hidden(fn()=> !Auth::user()->can('create', Archivetype::class))
                     ->schema([
                         Forms\Components\Fieldset::make()
                         ->schema([
@@ -180,33 +183,33 @@ class ArchivelendingResource extends Resource
                         ])
                     ]),
                 Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Fieldset::make()
+                    ->hidden(fn()=> !Auth::user()->can('create', Archivetype::class))
                     ->schema([
-                        Forms\Components\TextInput::make('returner_name')
-                            ->label('Nama Pengembali')
-                            ->maxLength(255),
+                        Forms\Components\Fieldset::make()
+                        ->schema([
+                            Forms\Components\TextInput::make('returner_name')
+                                ->label('Nama Pengembali')
+                                ->maxLength(255),
 
-                        Forms\Components\TextInput::make('returner_phone')
-                            ->label('Nomor Telepon Pengembali')
-                            ->tel()
-                            ->maxLength(255),
+                            Forms\Components\TextInput::make('returner_phone')
+                                ->label('Nomor Telepon Pengembali')
+                                ->tel()
+                                ->maxLength(255),
 
-                        Forms\Components\DatePicker::make('return_date')
-                            ->label('Tanggal Pengembalian'),
+                            Forms\Components\DatePicker::make('return_date')
+                                ->label('Tanggal Pengembalian'),
 
-                        Forms\Components\Select::make('return_officer_name')
-                            ->options(User::all()->pluck('name', 'name'))
-                            ->searchable()
-                            ->required()
-                            ->preload()
-                            ->label('Nama Petugas Pengembalian'),
+                            Forms\Components\Select::make('return_officer_name')
+                                ->options(User::all()->pluck('name', 'name'))
+                                ->searchable()
+                                ->preload()
+                                ->label('Nama Petugas Pengembalian'),
 
-                        Forms\Components\TextArea::make('return_note')
-                            ->label('Catatan Pengembalian')
-                            ->columnSpanFull(),
+                            Forms\Components\TextArea::make('return_note')
+                                ->label('Catatan Pengembalian')
+                                ->columnSpanFull(),
+                        ])
                     ])
-                ])
 
             ]);
     }
