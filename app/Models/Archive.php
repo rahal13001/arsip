@@ -12,13 +12,14 @@ use Spatie\Sluggable\SlugOptions;
 class Archive extends Model
 {
     use HasSlug;
-    protected $with = ['archiveuser'];
+    protected $with = ['archiveuser', 'archivelending', 'filecode', 'archivetype', 'accessclassification', 'archiveaccess'];
 
     protected $fillable = [
         'user_id',
         'filecode_id',
         'archivetype_id',
         'accessclassification_id',
+        'archiveaccess_id',
         'archive_name',
         'archive_slug',
         'archive_number',
@@ -62,6 +63,11 @@ class Archive extends Model
     public function archivelending() : HasMany
     {
         return $this->hasMany(Archivelending::class);
+    }
+
+    public function archiveaccess(): BelongsTo
+    {
+        return $this->belongsTo(ArchiveAccess::class);
     }
 
 }
