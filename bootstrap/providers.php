@@ -6,5 +6,6 @@ return [
     App\Providers\AuthApiService::class,
     App\Providers\AuthServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\Filament\GuestPanelProvider::class,
     App\Providers\SummaryApiUserProvider::class,
 ];
