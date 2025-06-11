@@ -1,16 +1,71 @@
 {
+  "node_modules/primeicons/fonts/primeicons.eot": {
+    "file": "assets/primeicons-DMOk5skT.eot",
+    "src": "node_modules/primeicons/fonts/primeicons.eot"
+  },
+  "node_modules/primeicons/fonts/primeicons.svg": {
+    "file": "assets/primeicons-Dr5RGzOO.svg",
+    "src": "node_modules/primeicons/fonts/primeicons.svg"
+  },
+  "node_modules/primeicons/fonts/primeicons.ttf": {
+    "file": "assets/primeicons-MpK4pl85.ttf",
+    "src": "node_modules/primeicons/fonts/primeicons.ttf"
+  },
+  "node_modules/primeicons/fonts/primeicons.woff": {
+    "file": "assets/primeicons-WjwUDZjB.woff",
+    "src": "node_modules/primeicons/fonts/primeicons.woff"
+  },
+  "node_modules/primeicons/fonts/primeicons.woff2": {
+    "file": "assets/primeicons-C6QP2o4f.woff2",
+    "src": "node_modules/primeicons/fonts/primeicons.woff2"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-CXjr_kD-.css",
+    "file": "assets/app-DgsxeMxn.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/Pages/Archive/Index.vue": {
+    "file": "assets/Index-CgSkw3pu.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Archive/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "css": [
+      "assets/Index-YxlrcofY.css"
+    ]
+  },
+  "resources/js/Pages/Home.vue": {
+    "file": "assets/Home-C5pIUSur.js",
+    "name": "Home",
+    "src": "resources/js/Pages/Home.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "css": [
+      "assets/Home-tn0RQdqM.css"
+    ]
+  },
   "resources/js/app.ts": {
-    "file": "assets/app-DXGNUxSi.js",
+    "file": "assets/app-Co8A6bAO.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Archive/Index.vue",
+      "resources/js/Pages/Home.vue"
+    ],
     "css": [
-      "assets/app-tn0RQdqM.css"
+      "assets/app-BOk-i4f-.css"
+    ],
+    "assets": [
+      "assets/primeicons-DMOk5skT.eot",
+      "assets/primeicons-C6QP2o4f.woff2",
+      "assets/primeicons-WjwUDZjB.woff",
+      "assets/primeicons-MpK4pl85.ttf",
+      "assets/primeicons-Dr5RGzOO.svg"
     ]
   }
 }
