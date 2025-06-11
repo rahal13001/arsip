@@ -25,7 +25,7 @@ class GuestPanelProvider extends PanelProvider
     {
         return $panel
             ->id('guest')
-            ->path('guest')
+            ->path('/')
             ->topNavigation()
             ->brandLogo(asset('img/Sipanda.png'))
             ->darkModeBrandLogo(asset('img/Sipandablack.png'))
