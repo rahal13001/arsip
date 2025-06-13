@@ -70,4 +70,9 @@ class Archive extends Model
         return $this->belongsTo(Archiveaccess::class);
     }
 
+    public function getRouteKeyName()
+    {
+        return 'archive_slug';
+    }
+
 }
