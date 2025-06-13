@@ -7,12 +7,16 @@ use App\Filament\Guest\Resources\ArchiveResource\RelationManagers;
 use App\Models\Archive;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 
@@ -21,11 +25,19 @@ class ArchiveResource extends Resource
     protected static ?string $model = Archive::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $slug = 'arsip';
 
     public static function canViewAny(): bool
     {
         return true;
     }
+
+    public static function canView(Model $record): bool
+    {
+        return true;
+    }
+
+
 
     public static function table(Table $table): Table
     {
@@ -160,6 +172,35 @@ class ArchiveResource extends Resource
             ;
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make('Informasi Utama')
+                    ->columns(2)
+                    ->schema([
+                        TextEntry::make('archive_number')
+                            ->label('Nomor Arsip Lengkap')
+                            ->formatStateUsing(function ($record) {
+                                $year = Carbon::parse($record->date_input)->format('Y');
+                                return "{$record->archive_number}/" . optional($record->filecode)->file_code . "/{$year}";
+                            }),
+                        TextEntry::make('archive_name')->label('Nama Arsip'),
+                        TextEntry::make('archivetype.archive_type')->label('Jenis Arsip'),
+                        TextEntry::make('user.name')->label('Pembuat'),
+                    ]),
+                Section::make('Detail Kearsipan')
+                    ->columns(2)
+                    ->schema([
+                        TextEntry::make('archive_description')->label('Deskripsi Arsip')
+                            ->columnSpanFull(),
+                        TextEntry::make('development')->label('Tingkat Pengembangan'),
+                        TextEntry::make('archiveuser.archive_properties')->label('Sifat Arsip'),
+                    ])
+            ]);
+    }
+
+
     public static function getRelations(): array
     {
         return [
@@ -171,8 +212,15 @@ class ArchiveResource extends Resource
     {
         return [
             'index' => Pages\ListArchives::route('/'),
+            'view' => Pages\ViewArchive::route('/{record}'),
 //            'create' => Pages\CreateArchive::route('/create'),
 //            'edit' => Pages\EditArchive::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): ?string
+    {
+        $locale = app()->getLocale();
+        return ($locale === 'id') ? "Arsip" : "Archive";
     }
 }
