@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ArchiveResource\RelationManagers;
 
+use App\Models\Archivelending;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -146,6 +147,11 @@ class ArchivelendingRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
+        $check = Archivelending::where('archive_id', $this->record->id)
+            ->where('lending_approval', 1)
+            ->where('return_date', null)
+            ->count();
+
         return $table
             ->recordTitleAttribute('archive_name')
             ->columns([
@@ -295,7 +301,9 @@ class ArchivelendingRelationManager extends RelationManager
                     }),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->hidden($check > 0)
+                    ->label('Pinjam'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
