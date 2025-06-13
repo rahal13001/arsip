@@ -156,8 +156,8 @@
                     <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">LPSPL Sorong berkomitmen penuh untuk mewujudkan Wilayah Bebas dari Korupsi (WBK) dan Wilayah Birokrasi Bersih dan Melayani (WBBM) melalui reformasi birokrasi yang berkelanjutan.</p>
                 </div>
                 <div class="flex justify-center items-center space-x-6">
-                    <img src="https://i.imgur.com/v9Y3u9g.png" alt="Logo Zona Integritas" class="h-32" onerror="this.onerror=null;this.src='https://placehold.co/128x128/ffffff/000000?text=ZI';">
-                    <img src="https://i.imgur.com/k2j4a2W.png" alt="Logo WBK" class="h-32" onerror="this.onerror=null;this.src='https://placehold.co/128x128/ffffff/000000?text=WBK';">
+                    <img src="{{asset('img/hakordia2.jpg')}}" alt="Logo Zona Integritas" class="h-32" onerror="this.onerror=null;this.src='https://placehold.co/128x128/ffffff/000000?text=ZI';">
+                    <img src="{{asset('img/wbk.jpg')}}" alt="Logo WBK" class="h-32" onerror="this.onerror=null;this.src='https://placehold.co/128x128/ffffff/000000?text=WBK';">
                 </div>
             </div>
         </div>
