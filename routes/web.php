@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Auth\RemoteLoginController;
 use App\Http\Controllers\Guest\ArchiveController;
+use App\Livewire\Guest\ArchiveLending;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 //
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/pinjam-arsip', ArchiveLending::class);
 //Route::get('/', function () {
 //    return Inertia::render('Home', [ // <-- 'Home' matches Home.vue
 //        'laravelVersion' => 12,
