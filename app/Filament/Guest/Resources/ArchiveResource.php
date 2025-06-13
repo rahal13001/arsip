@@ -110,6 +110,10 @@ class ArchiveResource extends Resource
                         return $state;
                     })
                     ->searchable(),
+                Tables\Columns\TextColumn::make('document_number')
+                    ->label('Nomor Dokumen/Surat')
+                    ->sortable()
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('archiveuser.archive_status')
                     ->label('Status Arsip')
