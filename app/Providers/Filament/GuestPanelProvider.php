@@ -2,15 +2,12 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -35,7 +32,7 @@ class GuestPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Guest/Resources'), for: 'App\\Filament\\Guest\\Resources')
             ->discoverPages(in: app_path('Filament/Guest/Pages'), for: 'App\\Filament\\Guest\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+//                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Guest/Widgets'), for: 'App\\Filament\\Guest\\Widgets')
             ->widgets([
