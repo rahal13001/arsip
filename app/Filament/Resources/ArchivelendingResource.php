@@ -79,15 +79,20 @@ class ArchivelendingResource extends Resource
                                     })
                                     // This function will now be the ONLY source for the selected item's label.
                                     ->getOptionLabelUsing(function ($value): ?string {
-                                        $record = Archive::with('filecode')->find($value);
+                                        $record = Archive::with('filecode', 'archivelending')->find($value);
                                         if (!$record) {
                                             return null;
                                         }
 
                                         $fileCode = $record->filecode?->file_code ?? '-';
+                                        if ($record->archivelending->lending_approval == 1 && is_null($record->archivelending->return_date)) {
+                                            $lending = 'Dipinjam';
+                                        } else {
+                                            $lending = 'Tersedia';
+                                        }
                                         $year = $record->date_input ? Carbon::parse($record->date_input)->format('Y') : '-';
 
-                                        return "{$record->archive_name} ({$record->archive_number}/{$fileCode}/{$year})";
+                                        return "{$record->archive_name} ({$record->archive_number}/{$fileCode}/{$year}) - ({$lending})";
                                     })
                                     ->required(),
                             ]),
