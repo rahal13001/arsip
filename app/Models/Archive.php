@@ -29,7 +29,8 @@ class Archive extends Model
         'sheet_number',
         'storage_location',
         'development',
-        'document'
+        'document',
+        'document_number',
     ];
 
     public function getSlugOptions() : SlugOptions
