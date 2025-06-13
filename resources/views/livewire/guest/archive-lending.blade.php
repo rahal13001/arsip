@@ -1,6 +1,6 @@
 <div>
     {{-- Karena ini komponen Livewire, semua elemen harus berada di dalam satu div root --}}
-    <div class="py-16 sm:py-24 bg-white dark:bg-slate-900">
+    <div class="py-8 sm:py-16 bg-white dark:bg-slate-900">
         <div class="container mx-auto px-6">
 
             {{-- Header Halaman --}}
