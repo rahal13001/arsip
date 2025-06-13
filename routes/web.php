@@ -10,7 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pinjam-arsip', ArchiveLending::class);
+Route::get('arsip/{record}/pinjam-arsip', ArchiveLending::class)->name('archive_lending');
+Route::get('arsip/{record}/konfirmasi-pinjam', \App\Livewire\Guest\LendingConfirmation::class)->name('lending_confirmation');
 //Route::get('/', function () {
 //    return Inertia::render('Home', [ // <-- 'Home' matches Home.vue
 //        'laravelVersion' => 12,
