@@ -92,6 +92,10 @@ class ArchiveResource extends Resource
                                 ->required()
                                 ->columnSpanFull()
                                 ->maxLength(255),
+                            Forms\Components\TextInput::make('document_number')
+                                ->label('Nomor Dokumen/Surat (Kosongkan jika tidak ada)')
+                                ->columnSpanFull()
+                                ->maxLength(255),
                             Forms\Components\DatePicker::make('date_make')
                                 ->label('Tanggal Pembuatan'),
                             Forms\Components\DatePicker::make('date_input')
@@ -301,7 +305,10 @@ class ArchiveResource extends Resource
                         return $state;
                     })
                     ->searchable(),
-
+                Tables\Columns\TextColumn::make('document_number')
+                    ->label('Nomor Dokumen/Surat')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('archiveuser.archive_status')
                     ->label('Status Arsip')
                     ->formatStateUsing(function ($record) {
@@ -561,6 +568,8 @@ class ArchiveResource extends Resource
                                     return $archiveNumber . '/' . ($fileCode ?: '-') . '/' . ($year ?: '-');
                                 })
                                 ->label('Nomor Arsip'),
+                            TextEntry::make('document_number')
+                                ->weight(FontWeight::Bold),
                         ])
                         ->collapsible(),
                     Section::make('Informasi Umum')
