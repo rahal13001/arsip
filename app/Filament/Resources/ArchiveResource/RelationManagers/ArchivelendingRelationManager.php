@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ArchiveResource\RelationManagers;
 
+use App\Filament\Exports\ArchiveExporter;
 use App\Models\Archivelending;
 use App\Models\User;
 use Filament\Forms;
@@ -102,11 +103,11 @@ class ArchivelendingRelationManager extends RelationManager
                                     ->searchable()
                                     ->required()
                                     ->preload()
-                                    ->label('Nama Petugas'),
+                                    ->label('Nama Petugas Peminjaman'),
 
                                 Forms\Components\TextInput::make('officer_position')
                                     ->required()
-                                    ->label('Jabatan Petugas')
+                                    ->label('Jabatan Petugas Peminjaman')
                                     ->maxLength(255),
 
                                 Forms\Components\Textarea::make('officer_note')
@@ -147,11 +148,6 @@ class ArchivelendingRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        $check = Archivelending::where('archive_id', $this->record->id)
-            ->where('lending_approval', 1)
-            ->where('return_date', null)
-            ->count();
-
         return $table
             ->recordTitleAttribute('archive_name')
             ->columns([
@@ -302,8 +298,21 @@ class ArchivelendingRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->hidden($check > 0)
-                    ->label('Pinjam'),
+                    ->label('Pinjam')
+                    ->visible(function () {
+                        // Logika untuk mengecek apakah arsip sedang dipinjam.
+
+                        // 1. Ambil record induk (yaitu arsip yang sedang dilihat).
+                        $archive = $this->getOwnerRecord();
+
+                        // 2. Cek di tabel 'archivelendings' apakah ada entri yang cocok.
+                        $isCurrentlyLent = \App\Models\Archivelending::where('archive_id', $archive->id)
+                            ->where('lending_approval', 1)
+                            ->whereNull('return_date')
+                            ->exists();
+
+                        return !$isCurrentlyLent;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
