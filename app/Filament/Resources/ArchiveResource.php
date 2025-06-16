@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\ArchiveExporter;
 use App\Filament\Resources\ArchiveResource\Pages;
 use App\Filament\Resources\ArchiveResource\RelationManagers;
 use App\Filament\Resources\ArchiveResource\RelationManagers\ArchivelendingRelationManager;
@@ -542,6 +543,7 @@ class ArchiveResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make()->exporter(ArchiveExporter::class)
                 ]),
             ]);
     }
