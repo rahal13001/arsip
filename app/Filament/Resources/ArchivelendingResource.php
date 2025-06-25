@@ -79,20 +79,27 @@ class ArchivelendingResource extends Resource
                                     })
                                     // This function will now be the ONLY source for the selected item's label.
                                     ->getOptionLabelUsing(function ($value): ?string {
-                                        $record = Archive::with('filecode', 'archivelending')->find($value);
-                                        if (!$record) {
+                                        // Tetap gunakan eager load relasi awal Anda
+                                        $data = Archive::with('filecode', 'archivelending')->find($value);
+
+                                        if (!$data) {
                                             return null;
                                         }
 
-                                        $fileCode = $record->filecode?->file_code ?? '-';
-                                        if ($record->archivelending->lending_approval == 1 && is_null($record->archivelending->return_date)) {
-                                            $lending = 'Dipinjam';
-                                        } else {
-                                            $lending = 'Tersedia';
-                                        }
-                                        $year = $record->date_input ? Carbon::parse($record->date_input)->format('Y') : '-';
+                                        // Cari di dalam KOLEKSI archivelending
+                                        // untuk record yang memenuhi kriteria peminjaman aktif.
+                                        $activeLending = $data->archivelending
+                                            ->where('lending_approval', 1)
+                                            ->whereNull('return_date')
+                                            ->first(); // ->first() akan mengembalikan satu model atau null
 
-                                        return "{$record->archive_name} ({$record->archive_number}/{$fileCode}/{$year}) - ({$lending})";
+                                        // Jika $activeLending tidak null, berarti ada peminjaman aktif
+                                        $lending = $activeLending ? 'Dipinjam' : 'Tersedia';
+
+                                        $fileCode = $data->filecode?->file_code ?? '-';
+                                        $year = $data->date_input ? \Carbon\Carbon::parse($data->date_input)->format('Y') : '-';
+
+                                        return "{$data->archive_name} ({$data->archive_number}/{$fileCode}/{$year}) - ({$lending})";
                                     })
                                     ->required(),
                             ]),
